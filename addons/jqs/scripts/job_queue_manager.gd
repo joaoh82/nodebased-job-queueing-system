@@ -8,10 +8,13 @@ class_name JobQueueManager
 
 signal all_jobs_finished()
 
+## Automatically starts the JobQueue
 @export var _auto_start : bool = true
 
+## Number of Threads to use.
 @export var thread_count: int = -1: set = set_thread_count
 
+## The JobQueue
 var _job_queue = JobQueue.new()
 
 func _enter_tree() -> void:
@@ -52,7 +55,7 @@ func _traverse_job_nodes_recursive(job_node : Node) -> void:
 		_traverse_job_nodes_recursive(child)			
 	
 		
-
+## Set the number of Threads
 func set_thread_count(value: int) -> void:
 	if value < 0:
 		value = OS.get_processor_count()
@@ -62,34 +65,47 @@ func set_thread_count(value: int) -> void:
 	else:
 		_job_queue.create_concurrent(thread_count)
 
+
 # DispatchQueue wrappers
 func dispatch(callable: Callable) -> Job:
 	return _job_queue.dispatch(callable)
 
 
+## Create all jobs in `job_list` by calling `dispatch` on each value,
 func dispatch_group(job_list: Array[Callable]) -> JobGroup:
 	return _job_queue.dispatch_group(job_list)
 
+
+## Returns true if the JobQueue is threaded
 func is_threaded() -> bool:
 	return _job_queue.is_threaded()
 
 
+## Returns the current Thread count
 func get_thread_count() -> int:
 	return _job_queue.get_thread_count()
 
 
+## Returns the number of queued jobs
 func size() -> int:
 	return _job_queue.size()
 
 
+## Returns true if the JobQueue is empty
 func is_empty() -> bool:
 	return _job_queue.is_empty()
 
 
+## Cancel pending Jobs, clearing the current queue.
 func clear() -> void:
 	_job_queue.clear()
 
 
+## Cancel pending Jobs, wait and release the used Threads.
+## The queue now runs in synchronous mode, so that new jobs will run in the main thread.
+## Call `create_serial` or `create_concurrent` to recreate the worker threads.
+## This method is called automatically on `NOTIFICATION_PREDELETE`.
+## It is safe to call this more than once.
 func shutdown() -> void:
 	_job_queue.shutdown()
 

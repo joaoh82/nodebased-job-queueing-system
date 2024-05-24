@@ -20,7 +20,7 @@ func _init(threaded: bool) -> void:
 ## Helper method for connecting to the "finished" signal.
 ##
 ## This enables the following pattern:
-##   dispatch_queue.dispatch_group(job_list).then(continuation_callable)
+##   job_queue.dispatch_group(job_list).then(continuation_callable)
 func then(callable: Callable, flags: int = 0) -> int:
 	return finished.connect(callable, flags | CONNECT_ONE_SHOT)
 

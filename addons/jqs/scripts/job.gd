@@ -20,7 +20,7 @@ var id_in_group: int = -1
 ## Helper method for connecting to the "finished" signal.
 ##
 ## This enables the following pattern:
-##   dispatch_queue.dispatch(callable).then(continuation_callable)
+##   job_queue.dispatch(callable).then(continuation_callable)
 func then(_callable: Callable, flags: int = 0) -> int:
 	return job_finished.connect(_callable, flags | CONNECT_ONE_SHOT)
 
