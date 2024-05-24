@@ -37,7 +37,7 @@ func start_job_queue() -> void:
 ## and calls `then` if it exists
 func _traverse_job_nodes() -> void:
 	for job_node in get_children():
-		if (job_node as JobNode).then:
+		if (job_node as JobNode).then and ((job_node as JobNode).then as JobNode).is_callback:
 			dispatch((job_node as JobNode).execute.bindv((job_node as JobNode).args)).then(((job_node as JobNode).then as JobNode).execute)
 		else:
 			dispatch((job_node as JobNode).execute.bindv((job_node as JobNode).args))

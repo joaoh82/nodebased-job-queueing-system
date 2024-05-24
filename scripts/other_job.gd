@@ -1,5 +1,5 @@
 extends JobNode
-class_name other_job
+class_name OtherJob
 
 func execute(a):
 	printt("other_job","_execute", a)

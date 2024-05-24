@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scripts/demo_scene.gd" id="1_8euh2"]
 [ext_resource type="Script" path="res://addons/jqs/scripts/job_queue_manager.gd" id="1_trvsb"]
 [ext_resource type="Script" path="res://scripts/my_job.gd" id="3_nmfh5"]
-[ext_resource type="Script" path="res://scripts/nested_job.gd" id="4_dlhpc"]
+[ext_resource type="Script" path="res://scripts/callback_job.gd" id="4_dlhpc"]
 [ext_resource type="Script" path="res://scripts/other_job.gd" id="4_w78a2"]
 
 [node name="DemoScene" type="Node3D" node_paths=PackedStringArray("_job_queue_manager")]
@@ -14,15 +14,15 @@ _job_queue_manager = NodePath("JobQueueManager")
 script = ExtResource("1_trvsb")
 thread_count = 2
 
-[node name="my_job" type="Node" parent="JobQueueManager" node_paths=PackedStringArray("then")]
+[node name="MyJob" type="Node" parent="JobQueueManager" node_paths=PackedStringArray("then")]
 script = ExtResource("3_nmfh5")
 args = [0, "josh"]
-then = NodePath("nested_job")
+then = NodePath("CallbackJob")
 
-[node name="nested_job" type="Node" parent="JobQueueManager/my_job"]
+[node name="CallbackJob" type="Node" parent="JobQueueManager/MyJob"]
 script = ExtResource("4_dlhpc")
 is_callback = true
 
-[node name="other_job" type="Node" parent="JobQueueManager"]
+[node name="OtherJob" type="Node" parent="JobQueueManager"]
 script = ExtResource("4_w78a2")
 args = [0]

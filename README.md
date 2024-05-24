@@ -17,7 +17,9 @@ Godot Job Queueing System
 Before you begin, ensure you have met the following requirements:
 * Godot Engine 4.2.1+
 
-### Usage
+## Usage
+
+### Using the classes directly
 
 #### Creating a new JobQueue
 
@@ -85,8 +87,71 @@ await job_queue.all_tasks_finished
 
 - JobQueue, Job and all classes extends RefCounted, so no need to worry about freeing it manually
 
+### Using the Node System
 
-### Contributing
+<img src="images/JobQueueingSystemNodeTree.png" alt="Node System" style="display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;"/>
+
+
+You can also use the Job Queueing System using nodes and in a very easy way.
+
+#### Add a JobQueueManager node to your node tree and configure it in the inspector.
+
+**Node: JobQueueManager**
+
+Parent node that manages the jobs and abstract the JobQueue class
+
+<img src="images/JobQueueingSystemInspector.png" alt="Node System" style="display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;"/>
+
+Properties:
+
+`Auto Start` - Determines is jobs should start running right at the start.
+
+`Thread Count` - Determines how many threads should be used by the Job Queueing System
+
+**Node: JobNode**
+
+<img src="images/JobNode-Code.png" alt="Node System" style="display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;"/>
+
+Before adding this node to the tree you should create a script, extend from `JobNode` and implement the `execute` method.
+
+<img src="images/MyJob - Code.png" alt="Node System" style="display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;"/>
+
+Properties:
+
+<img src="images/JobNodeInspector.png" alt="Node System" style="display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;"/>
+
+
+`Args` - Array of values of any type that will be passed as parameters to the `execute` method you implement for the node. The number of parameters and types should match the ones in the `execute` method.
+
+`Then` - Callback JobNode to be called when this job is done. Ideally you would nest these nodes so it is easier to understand when looking at the tree.
+
+`Is Callback` - You should check this is this JobNode is a callback of another JobNode
+
+<img src="images/Callback - Code.png" alt="Node System" style="display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;"/>
+
+The callback JobNode `execute` method should always have a result parameter that is passed from the parent JobNode. And the parent JobNode `execute` should always have a result value as a return type.
+
+**This uses a Unix approach where if you pipe one program into another, the output of one is always the input of the next one.**
+
+## Contributing
 **Pull requests are warmly welcome!!!**
 
 For major changes, please [open an issue](https://github.com/joaoh82/godot-jobqueueingsystem/issues/new) first and let's talk about it. We are all ears!

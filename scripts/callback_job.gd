@@ -1,5 +1,5 @@
 extends JobNode
-class_name nested_job
+class_name CallbackJob
 
 func execute(_result):
 	printt("nested_job","_execute")
