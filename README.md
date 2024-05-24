@@ -17,7 +17,7 @@ Godot Job Queueing System
 Before you begin, ensure you have met the following requirements:
 * Godot Engine 4.2.1+
 
-### Usage (TBD)
+### Usage
 
 #### Creating a new JobQueue
 
@@ -37,12 +37,12 @@ job_queue.create_concurrent(OS.get_processor_count())
 job_queue.dispatch(self.job_method_name.bind("optional", "method", "arguments"))
 ```
 
-#### Distaching Dependent Jobs
-The second job will only start after the first has finished
+#### Distaching Jobs with callbacks
+The callback job will only start after the first has finished
 ```gdscript
 job_queue.dispatch(self.job_method_name.bind("optional", "method", "arguments")).then(self.result_callback)
 ```
-**Important:** The `self.result_callback` takes an `results` array an argument and should have the following signature:
+**Important:** The `self.result_callback` takes an `results` array an argument and should have the following signature, and since it is called via a signal call it needs to have the `result : Array` as a parameter:
 ```gdscript
 func result_callback(result : Array) -> void:
 ...
@@ -61,14 +61,14 @@ job_queue.dispatch_group([
 ```
 
 - `dispatch_group` takes an Array of `Callable` with the option of having a callback method to be called after all jobs are done.
-- The jobs passed in the `dispatch_group` will be called one after the other, but not necessarily wait for each other to finish. Just the start of the job is in sequence. This may also vary depending if you are running with more than 1 thread or not.
+- The jobs passed in the `dispatch_group` will be called one after the other. This may also vary depending if you are running with more than 1 thread or not.
 
 #### Distaching Jobs in Couroutine Style
 ```gdscript
 var job = job_queue.dispatch(self.mymethod)
 # Waits for job to be finished
-var mymethod_result = await job.finished
-# Dispaches a group of jobs
+var mymethod_result = await job.job_finished
+# Dispaches a group of jobs after `job_finished` signal is called.
 var job_group = job_queue.dispatch_group([self.method1, self.method2])
 # Waits for all jobs in group to be finished
 var group_method_results = await job_group.finished
