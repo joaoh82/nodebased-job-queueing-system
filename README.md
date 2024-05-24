@@ -271,3 +271,6 @@ Contributor Covenant, the maintainer of Godot Job Queueing System, [@joaoh82](ht
 ### Contact
 
 If you want to contact me you can reach me at <joaoh82@gmail.com>.
+
+### Work based and inspired by: 
+https://github.com/gilzoide/godot-dispatch-queue
