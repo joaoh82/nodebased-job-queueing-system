@@ -12,15 +12,17 @@ _job_queue_manager = NodePath("JobQueueManager")
 
 [node name="JobQueueManager" type="Node" parent="."]
 script = ExtResource("1_trvsb")
-thread_count = 1
+thread_count = 2
 
-[node name="my_job" type="Node" parent="JobQueueManager"]
+[node name="my_job" type="Node" parent="JobQueueManager" node_paths=PackedStringArray("then")]
 script = ExtResource("3_nmfh5")
-_args = [2, 3]
+args = [0, "josh"]
+then = NodePath("nested_job")
 
 [node name="nested_job" type="Node" parent="JobQueueManager/my_job"]
 script = ExtResource("4_dlhpc")
+is_callback = true
 
 [node name="other_job" type="Node" parent="JobQueueManager"]
 script = ExtResource("4_w78a2")
-_args = ["Josh"]
+args = [0]

@@ -24,19 +24,32 @@ func _exit_tree() -> void:
 
 func _ready():
 	if _auto_start:
+		# Starts the JobQueue if auto_start is true
 		start_job_queue()
 		
 
+## Starts the JobQueue
 func start_job_queue() -> void:
-	_traverse_job_nodes(self)
-	
+	_traverse_job_nodes()
 
-func _traverse_job_nodes(job_node : Node) -> void:
+
+## Traverses the JobNode tree passing execute methods to the JobQueue
+## and calls `then` if it exists
+func _traverse_job_nodes() -> void:
+	for job_node in get_children():
+		if (job_node as JobNode).then:
+			dispatch((job_node as JobNode).execute.bindv((job_node as JobNode).args)).then(((job_node as JobNode).then as JobNode).execute)
+		else:
+			dispatch((job_node as JobNode).execute.bindv((job_node as JobNode).args))
+
+
+## Traverses the JobNode tree passing execute methods to the JobQueue recursively
+func _traverse_job_nodes_recursive(job_node : Node) -> void:
 	if job_node is JobNode:
-		dispatch((job_node as JobNode).execute.bindv((job_node as JobNode)._args))
+		dispatch((job_node as JobNode).execute.bindv((job_node as JobNode).args))
 	
 	for child in job_node.get_children():
-		_traverse_job_nodes(child)			
+		_traverse_job_nodes_recursive(child)			
 	
 		
 

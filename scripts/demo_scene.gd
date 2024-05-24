@@ -3,26 +3,25 @@ extends Node3D
 ## JobQueueManager Node
 @export var _job_queue_manager : JobQueueManager
 
-var job_queue : JobQueue = JobQueue.new()
+#var job_queue : JobQueue = JobQueue.new()
 
 func _ready():
 	# Setting JobQueue to serial and single threaded
-	job_queue.create_serial()
+	#job_queue.create_serial()
 	
 	# Dispatching a group of jobs
-	var job_list : Array[Callable]
-	job_list.append(_task_01)
-	job_list.append(_task_02.bind(0))
-	job_list.append(_task_03)
-	job_queue.dispatch_group(job_list)
+	#var job_list : Array[Callable]
+	#job_list.append(_task_01)
+	#job_list.append(_task_02.bind(0))
+	#job_list.append(_task_03)
+	#job_queue.dispatch_group(job_list)
 	
 	# Dispatching single jobs
 	#job_queue.dispatch(self._task_01).then(self._task_02)
 	#job_queue.dispatch(_task_03)
 	
-	
-	
 	pass
+	
 	
 func _task_01() -> int:
 	printt("_task_01 executing...")
@@ -33,9 +32,9 @@ func _task_01() -> int:
 	return 1
 	
 	
-func _task_02(result) -> void:
+func _task_02(_result) -> void:
 	printt("_task_02 executing...")
-	printt("result", result)
+	#printt("result", result)
 	printt("_task_02 done...")
 	
 	
