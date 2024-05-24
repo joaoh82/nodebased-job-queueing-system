@@ -17,6 +17,13 @@ Node Based Job Queueing System
 Before you begin, ensure you have met the following requirements:
 * Godot Engine 4.2.1+
 
+## How to Setup?
+
+1. If it does not yet exists, create a folder called `addons\` in the root of your project
+2. Copy the `addons\jqs\` to your `addons\` folder in your project
+3. Go to Project -> Project Settings -> Plugins -> And Enable the Plugin
+4. Setup is DONE!
+
 ## Usage
 
 ### Using the Node System
