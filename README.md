@@ -153,7 +153,7 @@ await job_queue.all_jobs_finished
 
 ## API
 
-### **JobQueue** ([addons/jqs/job_queue.gd](addons/jqs_queue/job_queue.gd)):
+### **JobQueue** ([addons/jqs/job_queue.gd](addons/jqs/job_queue.gd)):
 
 `signal all_jobs_finished()`
 - Emitted when the last queued Job finishes.
