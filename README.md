@@ -1,6 +1,6 @@
 Node Based Job Queueing System
 ===
-[![Maintenance](https://img.shields.io/badge/maintenance-actively%20maintained-brightgreen.svg)](https://deps.rs/repo/github/joaoh82/godot-jobqueueingsystem)
+[![Maintenance](https://img.shields.io/badge/maintenance-actively%20maintained-brightgreen.svg)](https://deps.rs/repo/github/joaoh82/nodebased-job-queueing-system)
 [![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
 
 `Godot Job Queueing System`, is a node based thread-safe and synchronous Dispatch Job System for Godot. 
@@ -255,7 +255,7 @@ await job_queue.all_jobs_finished
 ## Contributing
 **Pull requests are warmly welcome!!!**
 
-For major changes, please [open an issue](https://github.com/joaoh82/godot-jobqueueingsystem/issues/new) first and let's talk about it. We are all ears!
+For major changes, please [open an issue](https://github.com/joaoh82/nodebased-job-queueing-system/issues/new) first and let's talk about it. We are all ears!
 
 If you'd like to contribute, please fork the repository and make changes as you'd like and shoot a Pull Request our way!
 
