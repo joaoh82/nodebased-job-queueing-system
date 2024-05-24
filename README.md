@@ -46,6 +46,10 @@ Properties:
 
 `Thread Count` - Determines how many threads should be used by the Job Queueing System
 
+Methods:
+
+`start_job_queue() -> void:` - Starts the Jobs Queue. Only needed if Auto Start is not true.
+
 **Node: JobNode**
 
 <img src="images/JobNode-Code.png" alt="Node System" style="display: block;
