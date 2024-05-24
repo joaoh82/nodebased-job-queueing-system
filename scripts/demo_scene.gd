@@ -1,24 +1,33 @@
 extends Node3D
 
-#@export var _job_queue_manager : JobQueueManager
+## JobQueueManager Node
+@export var _job_queue_manager : JobQueueManager
 
 var job_queue : JobQueue = JobQueue.new()
 
 func _ready():
-	#var job_list : Array[Callable]
-	#job_list.append(_task_01)
-	#job_list.append(_task_02)
-	#job_list.append(_task_03)
-	#_job_queue_manager.dispatch(_task_01).then(_task_02)
-	
-	
+	# Setting JobQueue to serial and single threaded
 	job_queue.create_serial()
-	job_queue.dispatch(self._task_01).then(self._task_02)
+	
+	# Dispatching a group of jobs
+	var job_list : Array[Callable]
+	job_list.append(_task_01)
+	job_list.append(_task_02.bind(0))
+	job_list.append(_task_03)
+	job_queue.dispatch_group(job_list)
+	
+	# Dispatching single jobs
+	#job_queue.dispatch(self._task_01).then(self._task_02)
 	#job_queue.dispatch(_task_03)
+	
+	
+	
+	pass
 	
 func _task_01() -> int:
 	printt("_task_01 executing...")
-
+	for i in range(1000):
+		printt(i)
 	printt("_task_01 done...")
 	
 	return 1

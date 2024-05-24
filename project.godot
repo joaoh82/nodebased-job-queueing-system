@@ -14,3 +14,7 @@ config/name="JobQueueingSystem"
 run/main_scene="res://demo_scene.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/jqs/plugin.cfg")

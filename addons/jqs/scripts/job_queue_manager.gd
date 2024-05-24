@@ -1,3 +1,4 @@
+@icon("res://addons/jqs/icons/queue.png")
 ## Node that wraps a JobQueue.
 ## Creates the Threads when entering tree and shuts down when exiting tree.
 ## If `thread_count == 0`, runs queue in synchronous mode.
@@ -6,6 +7,8 @@ extends Node
 class_name JobQueueManager
 
 signal all_jobs_finished()
+
+@export var _auto_start : bool = true
 
 @export var thread_count: int = -1: set = set_thread_count
 
@@ -18,6 +21,24 @@ func _enter_tree() -> void:
 func _exit_tree() -> void:
 	_job_queue.shutdown()
 
+
+func _ready():
+	if _auto_start:
+		start_job_queue()
+		
+
+func start_job_queue() -> void:
+	_traverse_job_nodes(self)
+	
+
+func _traverse_job_nodes(job_node : Node) -> void:
+	if job_node is JobNode:
+		dispatch((job_node as JobNode).execute.bindv((job_node as JobNode)._args))
+	
+	for child in job_node.get_children():
+		_traverse_job_nodes(child)			
+	
+		
 
 func set_thread_count(value: int) -> void:
 	if value < 0:

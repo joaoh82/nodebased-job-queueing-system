@@ -22,7 +22,6 @@ var id_in_group: int = -1
 ## This enables the following pattern:
 ##   dispatch_queue.dispatch(callable).then(continuation_callable)
 func then(_callable: Callable, flags: int = 0) -> int:
-	printt("then", "_callable", _callable)
 	return job_finished.connect(_callable, flags | CONNECT_ONE_SHOT)
 
 
@@ -33,7 +32,6 @@ func then_deferred(_callable: Callable, flags: int = 0) -> int:
 
 func execute() -> void:
 	var result = callable.call()
-	printt("execute", "callable", callable)
 	job_finished.emit(result)
 	if group:
 		group.mark_job_finished(self, result)

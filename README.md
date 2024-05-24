@@ -3,7 +3,7 @@ Godot Job Queueing System
 [![Maintenance](https://img.shields.io/badge/maintenance-actively%20maintained-brightgreen.svg)](https://deps.rs/repo/github/joaoh82/godot-jobqueueingsystem)
 [![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
 
-`Godot Job Queueing System`, is a thread-safe and synchronous Dispatch Job System for Godot 
+`Godot Job Queueing System`, is a thread-safe and synchronous Dispatch Job System for Godot. 
 
 > What I cannot create, I do not understand. 
 > — Richard Feynman
@@ -22,11 +22,11 @@ Before you begin, ensure you have met the following requirements:
 #### Creating a new JobQueue
 
 ```gdscript
-# 1) Instantiate - Ideally in the top of the class (Check Example)
+# Instantiate - Ideally in the top of the class (Check Example)
 var job_queue : JobQueue = JobQueue.new()
-# 2.a) Either create a serial queue, which call concurrent but sets the thread number to 1
+# Create a serial queue, which call concurrent but sets the thread number to 1
 job_queue.create_serial()
-# 2.b) Or concurrent queue, with the number of available processors or however many threads you would like
+# Or concurrent queue, with the number of available processors or however many threads you would like.
 job_queue.create_concurrent(OS.get_processor_count())  
 # (if you do neither, JobQueue will run in synchronous mode)
 ```

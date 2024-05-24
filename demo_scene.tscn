@@ -1,11 +1,26 @@
-[gd_scene load_steps=3 format=3 uid="uid://dkyeoj7hlvl1y"]
+[gd_scene load_steps=6 format=3 uid="uid://dkyeoj7hlvl1y"]
 
 [ext_resource type="Script" path="res://scripts/demo_scene.gd" id="1_8euh2"]
-[ext_resource type="Script" path="res://scripts/jqs/job_queue_manager.gd" id="1_trvsb"]
+[ext_resource type="Script" path="res://addons/jqs/scripts/job_queue_manager.gd" id="1_trvsb"]
+[ext_resource type="Script" path="res://scripts/my_job.gd" id="3_nmfh5"]
+[ext_resource type="Script" path="res://scripts/nested_job.gd" id="4_dlhpc"]
+[ext_resource type="Script" path="res://scripts/other_job.gd" id="4_w78a2"]
 
-[node name="DemoScene" type="Node3D"]
+[node name="DemoScene" type="Node3D" node_paths=PackedStringArray("_job_queue_manager")]
 script = ExtResource("1_8euh2")
+_job_queue_manager = NodePath("JobQueueManager")
 
 [node name="JobQueueManager" type="Node" parent="."]
 script = ExtResource("1_trvsb")
 thread_count = 1
+
+[node name="my_job" type="Node" parent="JobQueueManager"]
+script = ExtResource("3_nmfh5")
+_args = [2, 3]
+
+[node name="nested_job" type="Node" parent="JobQueueManager/my_job"]
+script = ExtResource("4_dlhpc")
+
+[node name="other_job" type="Node" parent="JobQueueManager"]
+script = ExtResource("4_w78a2")
+_args = ["Josh"]
