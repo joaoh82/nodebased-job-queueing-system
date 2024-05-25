@@ -66,7 +66,7 @@ func set_thread_count(value: int) -> void:
 		_job_queue.create_concurrent(thread_count)
 
 
-# DispatchQueue wrappers
+# JobQueue wrappers
 func dispatch(callable: Callable) -> Job:
 	return _job_queue.dispatch(callable)
 
